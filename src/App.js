@@ -22,7 +22,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Router>
+        <Router basename="/NewsNest">
           <Navbar />
           <LoadingBar
           height={3}
