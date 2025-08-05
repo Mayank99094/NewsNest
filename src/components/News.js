@@ -77,13 +77,13 @@ const News = (props) => {
     setError(null);
 
     const baseUrl = searchQuery
-      ? `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-          searchQuery
-        )}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pageSize}`
+      ? `https://newsapi.org/v2/everything?q=${encodeURIComponent(searchQuery)}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pageSize}`
       : `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pageSize}`;
+
 
     try {
       let response = await fetch(baseUrl);
+      console.log(baseUrl)
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -96,9 +96,8 @@ const News = (props) => {
 
       // If no articles found for top-headlines, try fallback everything endpoint (only on page 1)
       if (data.totalResults === 0 && page === 1 && !searchQuery) {
-        const fallbackUrl = `https://newsapi.org/v2/everything?q=${
-          props.category || "latest"
-        }&apiKey=${props.apikey}&page=1&pageSize=${props.pageSize}`;
+        const fallbackUrl = `https://newsapi.org/v2/everything?q=${props.category || "latest"
+          }&apiKey=${props.apikey}&page=1&pageSize=${props.pageSize}`;
         let fallbackResponse = await fetch(fallbackUrl);
         let fallbackData = await fallbackResponse.json();
         console.log("Fallback API response:", fallbackData);
@@ -203,7 +202,7 @@ const News = (props) => {
                     source={element.source.name}
                   />
                   {/* Listen button */}
-                 
+
                 </div>
               ))}
             </div>
