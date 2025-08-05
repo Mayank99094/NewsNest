@@ -83,12 +83,10 @@ const News = (props) => {
 
     try {
       let response = await fetch(baseUrl);
-      console.log(baseUrl)
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       let data = await response.json();
-      console.log("News API response:", data);
 
       if (data.status !== "ok") {
         throw new Error(data.message || "Error fetching news");
@@ -100,7 +98,6 @@ const News = (props) => {
           }&apiKey=${props.apikey}&page=1&pageSize=${props.pageSize}`;
         let fallbackResponse = await fetch(fallbackUrl);
         let fallbackData = await fallbackResponse.json();
-        console.log("Fallback API response:", fallbackData);
         if (fallbackData.status === "ok" && fallbackData.totalResults > 0) {
           setArticles(fallbackData.articles);
           setTotalResults(fallbackData.totalResults);
